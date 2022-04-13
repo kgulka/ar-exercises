@@ -34,14 +34,24 @@ puts "----------"
 #Store.joins(:employees)
 @employees.each do |employee|
   puts "#{employee.first_name} hourly rate: #{employee.hourly_rate}"
-  puts "employee store? #{employee.stores}"
+  puts "employee store? #{employee.store.name}"
 end
-####Get the store name from the employee.
-#@storename = Store.find( store_id , :include => [:employee] )
-# puts @store1
+###Get the store name from the employee.
+emp = @employees.first
+@storename = emp.store.name
+puts "storeName:" + @storename
 
-store3 = Store.create(name: "Calgary")
+store3 = Store.create(name: @storename)
+puts "store3.name: " + store3.name
 
+puts "store3.errors.count: #{store3.errors.count}"
 store3.errors.full_messages.each do |message|
+  puts message
+end
+
+store4 = Store.create(name: "Calgary")
+puts "store4.name: " + store4.name
+
+store4.errors.full_messages.each do |message|
   puts message
 end
